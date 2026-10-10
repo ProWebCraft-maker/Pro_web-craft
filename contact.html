@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تواصل معنا | Pro Web Craft</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
+<style>
+    /* --------------------- GLOBAL & ANIMATION --------------------- */
+    :root {
+        --primary-color: #00eaff;
+        --secondary-color: #b400ff;
+        --whatsapp-green: #25D366;
+        --glass: rgba(255, 255, 255, 0.05);
+    }
+
+    body {
+        margin: 0;
+        font-family: "Cairo", sans-serif;
+        background: linear-gradient(135deg, #0d0d1a, #1a1a40, #0b0b1f);
+        background-size: 200% 200%;
+        animation: bgMove 8s ease infinite;
+        color: white;
+        overflow-x: hidden;
+        min-height: 100vh;
+    }
+
+    @keyframes bgMove {
+        0% { background-position: 0% 0%; }
+        50% { background-position: 100% 100%; }
+        100% { background-position: 0% 0%; }
+    }
+
+    /* --------------------- NAV BAR --------------------- */
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+        background: rgba(10, 10, 25, 0.7);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 999;
+    }
+
+    .logo {
+        font-size: 26px;
+        font-weight: 900;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        direction: ltr;
+        display: inline-block;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+        margin: 0; padding: 0;
+    }
+
+    .nav-links li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+        transition: 0.3s;
+    }
+
+    .nav-links li a:hover { color: var(--primary-color); }
+
+    .mobile-btn { display: none; font-size: 28px; cursor: pointer; }
+
+    /* --------------------- CONTACT SECTION --------------------- */
+    .contact-wrapper {
+        padding: 120px 20px 60px;
+        max-width: 1100px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .contact-wrapper h1 {
+        font-size: 40px;
+        font-weight: 900;
+        margin-bottom: 40px;
+        background: linear-gradient(to bottom, #fff, #aaa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        margin-bottom: 50px; /* مسافة بين الكروت والسوشيال ميديا */
+    }
+
+    .info-card {
+        background: var(--glass);
+        padding: 30px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        text-align: right;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        backdrop-filter: blur(5px);
+    }
+
+    .info-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Icons Styling */
+    .icon-box {
+        width: 65px;
+        height: 65px;
+        min-width: 65px;
+        border-radius: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Glow colors for icons */
+    .phone .icon-box { color: #00eaff; box-shadow: 0 0 15px rgba(0, 234, 255, 0.2); }
+    .whatsapp .icon-box { color: #25D366; box-shadow: 0 0 15px rgba(37, 211, 102, 0.2); }
+    .email .icon-box { color: #b400ff; box-shadow: 0 0 15px rgba(180, 0, 255, 0.2); }
+    .location .icon-box { color: #ff4d4d; box-shadow: 0 0 15px rgba(255, 77, 77, 0.2); }
+
+    .card-content h3 {
+        margin: 0;
+        font-size: 20px;
+        color: #fff;
+    }
+
+    .card-content p {
+        margin: 5px 0 0;
+        font-size: 15px;
+        color: #ccc;
+        line-height: 1.6;
+    }
+
+    .number-fix {
+        direction: ltr;
+        display: block;
+        unicode-bidi: embed;
+    }
+
+    /* WhatsApp Button */
+    .whatsapp-action-btn {
+        margin-top: 15px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--whatsapp-green);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .whatsapp-action-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+    }
+
+    /* --------------------- SOCIAL MEDIA SECTION --------------------- */
+    .social-section {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .social-section h2 {
+        font-size: 24px;
+        margin-bottom: 25px;
+        color: #eee;
+    }
+
+    .social-icons-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .social-link {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+
+    .social-link svg {
+        width: 28px;
+        height: 28px;
+        fill: white;
+        transition: 0.3s;
+    }
+
+    /* ألوان وتأثيرات السوشيال ميديا */
+    /* Facebook */
+    .social-link.fb:hover {
+        background: #1877F2;
+        box-shadow: 0 0 20px rgba(24, 119, 242, 0.5);
+        border-color: #1877F2;
+        transform: translateY(-5px);
+    }
+
+    /* Instagram */
+    .social-link.insta:hover {
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        box-shadow: 0 0 20px rgba(225, 48, 108, 0.5);
+        border-color: transparent;
+        transform: translateY(-5px);
+    }
+
+    /* X (Twitter) */
+    .social-link.x:hover {
+        background: #000;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        border-color: #fff;
+        transform: translateY(-5px);
+    }
+
+
+    /* --------------------- RESPONSIVE --------------------- */
+ /* --------------------- RESPONSIVE IMPROVEMENTS --------------------- */
+    @media (max-width: 850px) {
+        /* 1. تظبيط الهيدر والناف بار */
+        nav {
+            padding: 10px 5%;
+        }
+
+        .nav-links {
+            position: fixed; /* عشان تضمن إنها فوق كل حاجة */
+            top: 60px; 
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 0; /* مخفية */
+            background: rgba(10, 10, 25, 0.98);
+            backdrop-filter: blur(15px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease-in-out;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; /* حولناها flex عشان نعرف نتحكم في التوسط */
+        }
+
+        .nav-links.active {
+            height: 280px; /* الارتفاع اللي هتفتحه */
+            padding: 20px 0;
+        }
+
+        .mobile-btn {
+            display: block;
+            color: var(--primary-color);
+        }
+
+        /* 2. تظبيط الكروت */
+        .contact-wrapper {
+            padding-top: 100px; /* مسافة عشان الهيدر الثابت */
+        }
+
+        .contact-wrapper h1 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .contact-grid {
+            grid-template-columns: 1fr; /* كارت واحد في كل سطر */
+            gap: 15px;
+            padding: 0 10px;
+        }
+
+        .info-card {
+            padding: 20px;
+            flex-direction: column; /* الأيقونة فوق الكلام في الموبايل لشكل أشيك */
+            text-align: center;
+            gap: 10px;
+        }
+
+        .icon-box {
+            width: 55px;
+            height: 55px;
+            min-width: 55px;
+            font-size: 24px;
+        }
+
+        .card-content h3 {
+            font-size: 18px;
+        }
+
+        .card-content p {
+            font-size: 14px;
+        }
+
+        /* 3. السوشيال ميديا */
+        .social-link {
+            width: 50px;
+            height: 50px;
+        }
+
+        .social-link svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">Pro <span>Web</span> Craft</div>
+    <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="services.html">أعمالنا</a></li>
+        <li><a href="pay.html">طريقة الدفع</a></li>
+        <li><a href="contact.html" style="color:var(--primary-color)">التواصل</a></li>
+    </ul>
+    <div class="mobile-btn">☰</div>
+</nav>
+
+<div class="contact-wrapper">
+    <h1>تواصل معنا</h1>
+    
+    <div class="contact-grid">
+        
+        <div class="info-card phone">
+            <div class="icon-box">📞</div>
+            <div class="card-content">
+                <h3>اتصل بنا</h3>
+                <p class="number-fix">+20 155 389 6282</p>
+                <p class="number-fix">+20 127 174 5065</p>
+            </div>
+        </div>
+
+        <div class="info-card whatsapp">
+            <div class="icon-box">💬</div>
+            <div class="card-content">
+                <h3>واتساب</h3>
+                <p class="number-fix">+20 155 389 6282</p>
+                <a class="whatsapp-action-btn" href="https://wa.me/201553896282" target="_blank">
+                    دردشة مباشرة
+                </a>
+            </div>
+        </div>
+
+        <div class="info-card email">
+            <div class="icon-box">✉️</div>
+            <div class="card-content">
+                <h3>البريد الإلكتروني</h3>
+                <p>pro.webcraft1@gmail.com</p>
+                <p>youssefali.ahmed2002@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="info-card location">
+            <div class="icon-box">📍</div>
+            <div class="card-content">
+                <h3>مقرنا</h3>
+                <p>مصر - المنوفية - مدينة السادات</p>
+                <p>نعمل عن بُعد ونصلك أينما كنت 🚀</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="social-section">
+        <h2>تابعنا على منصات التواصل</h2>
+        <div class="social-icons-container">
+            
+            <a href="https://www.facebook.com/profile.php?id=61585305193974" target="_blank" class="social-link fb">
+                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+
+            <a href="https://www.instagram.com/pro.webcraft1/?next=%2F" target="_blank" class="social-link insta">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+
+            <a href="https://x.com/pro_webcra15857" target="_blank" class="social-link x">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // التحكم في قائمة الموبايل
+    const menuBtn = document.querySelector(".mobile-btn");
+    const menu = document.querySelector(".nav-links");
+
+    menuBtn.onclick = () => {
+        menu.classList.toggle("active");
+    };
+</script>
+
+<script src="enhancements.js" defer></script>
+</body>
+</html>

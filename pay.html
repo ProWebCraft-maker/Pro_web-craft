@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>طريقة الدفع ومراحل العمل | Pro Web Craft</title>
+<link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #00d5ff;
+            --secondary-color: #7b40ff;
+            --bg-dark: #0b0b1f;
+            --glass-bg: rgba(15, 15, 30, 0.75);
+            --text-color: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Cairo", sans-serif;
+            background: linear-gradient(135deg, #050510, #1a1a40, #0b0b1f);
+            background-size: 300% 300%;
+            animation: bgMove 10s ease infinite;
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            text-decoration: none;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #ccc;
+            font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links li a:hover, .nav-links li a.active-link {
+            color: white;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            right: 0;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links li a:hover::after, .nav-links li a.active-link::after {
+            width: 100%;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        .payment-section {
+            padding: 140px 5% 60px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 80px;
+        }
+
+        .section-title span {
+            color: var(--primary-color);
+        }
+
+        .timeline-wrapper {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            right: 5%;
+            width: 90%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transform: translateY(-50%);
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .progress-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            animation: loadingBar 3s ease-in-out infinite alternate;
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        @keyframes loadingBar {
+            0% { width: 10%; }
+            100% { width: 100%; }
+        }
+
+        .payment-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .payment-box {
+            background: var(--glass-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px 20px;
+            border-radius: 20px;
+            flex: 1;
+            min-width: 280px;
+            position: relative;
+            transition: 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .payment-box:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 40px rgba(0, 213, 255, 0.2);
+        }
+
+        .icon-container {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(123, 64, 255, 0.5);
+        }
+
+        .payment-box h3 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .payment-box p {
+            font-size: 16px;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .payment-percentage {
+            font-size: 40px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: auto;
+        }
+
+        .payment-methods {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .payment-methods h4 {
+            font-size: 22px;
+            color: #aaa;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .methods-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .method-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            transition: 0.4s ease;
+            cursor: pointer;
+        }
+
+        .method-item i {
+            font-size: 45px;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.4s ease;
+        }
+
+        .method-item span {
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .method-item:hover i {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .method-item:hover span {
+            opacity: 1;
+            transform: translateY(0);
+            color: #fff;
+        }
+
+        .method-item.visa:hover i { color: #1a1f71; text-shadow: 0 0 15px rgba(26, 31, 113, 0.8); }
+        .method-item.paypal:hover i { color: #00457C; text-shadow: 0 0 15px rgba(0, 69, 124, 0.8); }
+        .method-item.vodafone:hover i { color: #E60000; text-shadow: 0 0 15px rgba(230, 0, 0, 0.8); }
+        .method-item.instapay:hover i { color: rgb(95, 5, 136); text-shadow: 0 0 15px rgb(95, 5, 136); }
+        .method-item.cash:hover i { color: #22c55e; text-shadow: 0 0 15px rgba(34, 197, 94, 0.8); }
+
+        @media screen and (max-width: 900px) {
+            .payment-container {
+                flex-direction: column;
+            }
+
+            .progress-line {
+                width: 6px;
+                height: 90%;
+                top: 5%;
+                right: 50%;
+                transform: translateX(50%);
+            }
+
+            .progress-line::after {
+                background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+                animation: loadingBarMobile 3s ease-in-out infinite alternate;
+            }
+
+            @keyframes loadingBarMobile {
+                0% { height: 10%; }
+                100% { height: 100%; }
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #0b0b1f;
+                height: 0;
+                overflow: hidden;
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                transition: all 0.4s ease-in-out;
+            }
+
+            .nav-links.active {
+                height: 320px;
+                padding-top: 20px;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                opacity: 0;
+                transform: translateY(-20px);
+                transition: 0.3s;
+            }
+
+            .nav-links.active li {
+                opacity: 1;
+                transform: translateY(0);
+                padding: 15px 0;
+            }
+
+            .burger {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">Pro <span>Web</span> Craft</a>
+        
+        <ul class="nav-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="services.html">أعمالنا</a></li>
+            <li><a href="pay.html" style="color:var(--primary-color)">طريقة الدفع</a></li>
+            <li><a href="contact.html">التواصل</a></li>
+        </ul>
+
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <section class="payment-section">
+        <h2 class="section-title">طريقة <span>الدفع</span> ومراحل العمل</h2>
+        
+        <div class="timeline-wrapper">
+            <div class="progress-line"></div>
+
+            <div class="payment-container">
+                <div class="payment-box">
+                    <div class="icon-container">
+                        <i class="fa-solid fa-pen-ruler"></i>
+                    </div>
+                    <h3>الهيكل</h3>
+                    <p>تخطيط الواجهة (Wireframe) وبناء الأساسات الأولية وتحديد مسار المستخدم.</p>
+                    <div class="payment-percentage">15%</div>
+                </div>
+
+                <div class="payment-box">
+                    <div class="icon-container">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3>المنتصف</h3>
+                    <p>كتابة الأكواد، برمجة لوحة التحكم، ربط قواعد البيانات، وتنسيق التصميم بالكامل.</p>
+                    <div class="payment-percentage">35%</div>
+                </div>
+
+                <div class="payment-box">
+                    <div class="icon-container">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <h3>الانتهاء</h3>
+                    <p>المراجعة النهائية، اختبار التجاوب والأمان، ورفع الموقع رسمياً على الاستضافة.</p>
+                    <div class="payment-percentage">50%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-methods">
+            <h4>طرق الدفع المتاحة</h4>
+            <div class="methods-logos">
+                <div class="method-item visa">
+                    <del><i class="fa-brands fa-cc-visa"></i></del>
+                    <span><del>Visa / Mastercard</del></span>
+                </div>
+
+                <div class="method-item paypal">
+                    <del><i class="fa-brands fa-paypal"></i></del>
+                    <span><del>PayPal</del></span>
+                </div>
+
+                <div class="method-item vodafone">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span>Vodafone Cash</span>
+                </div>
+
+                <div class="method-item instapay">
+                    <i class="fa-solid fa-money-bill-transfer"></i>
+                    <span>Instapay</span>
+                </div>
+
+                <div class="method-item cash">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <span>cash</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links li a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+<script src="enhancements.js" defer></script>
+</body>
+</html>

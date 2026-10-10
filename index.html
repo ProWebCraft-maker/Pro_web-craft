@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pro Web Craft | تصميم مواقع احترافي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
+
+    <style>
+        /* --------------------- إعدادات عامة --------------------- */
+        :root {
+            --primary-color: #00d5ff;
+            --secondary-color: #7b40ff;
+            --bg-dark: #0b0b1f;
+            --glass-bg: rgba(15, 15, 30, 0.75);
+            --text-color: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Cairo", sans-serif;
+            background: linear-gradient(135deg, #050510, #1a1a40, #0b0b1f);
+            background-size: 300% 300%;
+            animation: bgMove 10s ease infinite;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --------------------- الشريط العلوي (Nav) --------------------- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        /* اللوجو */
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            text-decoration: none;
+            direction: ltr; /* لضمان ظهور الاسم الإنجليزي بشكل صحيح */
+            display: inline-block;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* القائمة */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #ccc;
+            font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: white;
+        }
+
+        /* خط تحت الروابط عند التحويم */
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            right: 0;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        /* زر القائمة للموبايل */
+        .burger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        /* --------------------- قسم الهيرو (Hero) --------------------- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        /* تأثير إضاءة خلف النص */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(123,64,255,0.2) 0%, rgba(0,0,0,0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 70px;
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: -2px;
+            background: linear-gradient(90deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.5s;
+        }
+
+        .hero .brand-name {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.2s;
+            letter-spacing: 2px;
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            margin-top: 10px;
+            font-weight: 700;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.8s;
+        }
+
+        .hero p {
+            margin-top: 20px;
+            font-size: 18px;
+            max-width: 650px;
+            line-height: 1.8;
+            color: #ddd;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1s;
+        }
+
+        .cta-btn {
+            margin-top: 40px;
+            padding: 16px 50px;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: "Cairo", sans-serif;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            cursor: pointer;
+            transition: 0.4s;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1.3s;
+            box-shadow: 0 10px 30px rgba(123, 64, 255, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 213, 255, 0.5);
+        }
+
+        /* أنميشن الظهور */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --------------------- التجاوب (Responsive) --------------------- */
+        @media screen and (max-width: 768px) {
+            
+            /* 1. تظبيط القائمة المنسدلة */
+            .nav-links {
+                position: fixed; /* تغيير لـ fixed عشان تفضل ثابتة وأنت بتعمل سكرول */
+                top: 70px;
+                left: 0; /* ضمان إنها تبدأ من أول الشاشة */
+                width: 100%;
+                background: #0b0b1f; /* لون خلفية صريح عشان الكلام ميتداخلش مع اللي وراه */
+                height: 0;
+                overflow: hidden;
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                transition: all 0.4s ease-in-out;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                height: 320px; /* مساحة كافية لظهور كل الروابط */
+                padding-top: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* ضل عشان يفصلها عن المحتوى */
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                opacity: 0; /* مخفي في البداية */
+                transform: translateY(-20px);
+                transition: 0.3s;
+            }
+
+            /* تأثير ظهور الروابط لما القائمة تفتح */
+            .nav-links.active li {
+                opacity: 1;
+                transform: translateY(0);
+                padding: 15px 0;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            /* 2. تظبيط قسم الهيرو عشان الكلام ميتفعصش */
+            .hero {
+                height: auto; /* إلغاء الطول الثابت */
+                min-height: 100vh; /* الحد الأدنى لطول الشاشة */
+                padding-top: 120px; /* مسافة من فوق عشان الكلام ميدخلش تحت الناف بار */
+                padding-bottom: 60px; /* مسافة من تحت */
+            }
+
+            .hero::before {
+                width: 200px; /* تصغير دائرة الإضاءة الخلفية */
+                height: 200px;
+            }
+
+            .hero .brand-name {
+                font-size: 18px; /* تصغير حجم اسم البراند */
+                margin-bottom: 5px;
+            }
+
+            .hero h1 {
+                font-size: 36px; /* حجم خط مناسب للموبايل */
+                line-height: 1.3;
+                margin-bottom: 10px;
+            }
+
+            .hero h2 {
+                font-size: 18px;
+                line-height: 1.5;
+                padding: 0 10px;
+            }
+
+            .hero p {
+                font-size: 15px;
+                line-height: 1.6;
+                padding: 0 20px; /* هوامش جانبية عشان الكلام ميلزقش في الحواف */
+                max-width: 100%;
+            }
+
+            .cta-btn {
+                width: 80%; /* الزرار ياخد عرض الشاشة تقريباً */
+                padding: 14px;
+                font-size: 16px;
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Pro <span>Web</span> Craft</div>
+        
+        <ul class="nav-links">
+            <li><a href="index.html" style="color:var(--primary-color)">الرئيسية</a></li>
+            <li><a href="services.html">أعمالنا</a></li>
+            <li><a href="pay.html">طريقة الدفع</a></li>
+            <li><a href="contact.html">تواصل </a></li>
+        </ul>
+
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="brand-name"> Team Pro Web Craft</div>
+        <h1>نحول فكرتك إلى واقع رقمي</h1>
+        <h2>تصميم مواقع ترفع مبيعاتك وتعزز علامتك التجارية</h2>
+        <p>
+            فريق متكامل من المطورين والمصممين لتقديم حلول ويب سريعة، 
+            آمنة، وتعمل بكفاءة على جميع الأجهزة.
+        </p>
+        <button class="cta-btn" onclick="window.location.href='contact.html'">ابدأ مشروعك الآن</button>
+    </section>
+
+    <script>
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+
+        burger.addEventListener('click', () => {
+            // تفعيل القائمة
+            nav.classList.toggle('active');
+            
+            // تحريك أيقونة البرجر (اختياري)
+            burger.classList.toggle('toggle');
+        });
+
+        // إغلاق القائمة عند الضغط على أي رابط (لتحسين تجربة المستخدم)
+        document.querySelectorAll('.nav-links li a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+<script src="enhancements.js" defer></script>
+</body>
+</html>
